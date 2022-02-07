@@ -9,7 +9,7 @@ class Store:
         self.url = "{}/pd/{}/productdetail/{}/Guest".format(self.base_url, self.product_id, id)
         """
         Lowes checks for user agent and other headers that need to be added to requests call
-        My guess is to avoid abuse on the API with spam, hence why sleep call is added here.
+        My guess is to avoid abuse on the API with spam.
         Reference: https://stackoverflow.com/a/58266926
         """
         self.headers = {
@@ -24,7 +24,8 @@ class Store:
     def check(self):
         return {
             "availability": self.get_availability(),
-            "url": self.get_product_url()
+            "url": self.get_product_url(),
+            "address": self.get_address()
         }
 
     def get_availability(self):
@@ -32,11 +33,11 @@ class Store:
         field_checks = [
             {
                 "field": "parcel",
-                "msg": "Delivery to you"
+                "msg": "Available via delivery"
             },
             {
                 "field": "pickup",
-                "msg": "Pickup at store"
+                "msg": "Available via pickup at store"
             }
         ]
         inventory = self.result['inventory']
@@ -47,4 +48,13 @@ class Store:
         return availabilities
 
     def get_product_url(self):
-        return self.base_url + '/' + self.result['productDetails'][self.product_id]['product']['pdURL']
+        return self.base_url + self.result['productDetails'][self.product_id]['product']['pdURL']
+
+    def get_address(self):
+        store_details = self.result['storeDetails']
+        return {
+            'address': store_details['address'],
+            'city': store_details['city'],
+            'state': store_details['state'],
+            'zip': store_details['zip']
+        }
