@@ -1,9 +1,9 @@
 from store_driver import StoreDriver
-from locator import Locator
+from locator_driver import LocatorDriver
 
 
 def main():
-	store_ids = Locator("98406").get_store_ids()
+	store_ids = LocatorDriver("98406").check()
 	result = StoreDriver("5001928007", store_ids).check()
 	print(result)
 	print(len(result))

@@ -3,9 +3,7 @@ import requests
 
 class Locator:
 
-    def __init__(self, zipcode):
-        # How many stores we grab near the stores
-        self.max_results = 3
+    def __init__(self, zipcode, max_stores=3):
         self.url = "https://www.lowes.com/store/nearbystoredetails"
         self.headers = {
             "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36 OPR/38.0.2220.41",  # noqa
@@ -17,7 +15,7 @@ class Locator:
         self.result = requests.get(
             self.url,
             headers=self.headers,
-            params={"maxResults": self.max_results, "responseGroup": "large", "searchTerm": zipcode}
+            params={"maxResults": max_stores, "responseGroup": "large", "searchTerm": zipcode}
         ).json()
 
     def get_store_ids(self):
