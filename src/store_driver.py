@@ -12,10 +12,10 @@ class StoreDriver:
     def check(self):
         results = []
         for store_id in self.store_ids:
-            result = Store(store_id, self.product_id).check()
             """
             Used to avoid spamming the Lowe's API services
             """
             time.sleep(self.time_between_requests)
+            result = Store(store_id, self.product_id).check()
             results.append(result)
         return results
