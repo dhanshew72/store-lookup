@@ -40,11 +40,18 @@ class Store:
                 "msg": "Available via pickup at store"
             }
         ]
-        inventory = self.result['inventory']
-        for field_check in field_checks:
-            field = field_check['field']
-            if inventory['analyticsData'][field]['isAvlSts']:
-                availabilities.append(field_check['msg'])
+        try:
+            inventory = self.result['inventory']
+            for field_check in field_checks:
+                field = field_check['field']
+                if inventory['analyticsData'][field]['isAvlSts']:
+                    availabilities.append(field_check['msg'])
+        except KeyError:
+            """
+            Occasionally fields are missing from Lowe's page, this generally means it's unavailable however
+            possible that a bug has occurred within the API itself
+            """
+            return []
         return availabilities
 
     def get_product_url(self):
