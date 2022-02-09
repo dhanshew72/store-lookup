@@ -3,10 +3,10 @@ import requests
 
 class Store:
 
-    def __init__(self, id, product_id):
+    def __init__(self, store_id, product_id):
         self.product_id = product_id
         self.base_url = 'https://lowes.com'
-        self.url = "{}/pd/{}/productdetail/{}/Guest".format(self.base_url, self.product_id, id)
+        self.url = "{}/pd/{}/productdetail/{}/Guest".format(self.base_url, self.product_id, store_id)
         """
         Lowes checks for user agent and other headers that need to be added to requests call
         My guess is to avoid abuse on the API with spam.
