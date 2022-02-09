@@ -8,7 +8,7 @@ class LocatorDriver:
         self.zipcode = zipcode
         self.time_between_requests = 2
 
-    def check(self):
+    def check(self, max_stores=3):
         time.sleep(self.time_between_requests)
-        result = Locator(self.zipcode).get_store_ids()
+        result = Locator(self.zipcode, max_stores).get_store_ids()
         return result
