@@ -25,7 +25,7 @@ class Store:
         return {
             "availability": self.get_availability(),
             "url": self.get_product_url(),
-            "address": self.get_address()
+            "location": self.get_address()
         }
 
     def get_availability(self):

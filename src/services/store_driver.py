@@ -1,7 +1,7 @@
 import time
 
 import settings
-from store import Store
+from services.store import Store
 
 
 class StoreDriver:
